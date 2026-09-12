@@ -1,0 +1,11 @@
+services:
+  api:
+    build: .
+    ports: ["8080:8080"]
+    depends_on: [postgres, redis]
+    environment: { DATABASE_URL: postgres://pilot:pilot@postgres:5432/pilot, REDIS_ADDR: redis:6379 }
+  postgres:
+    image: postgres:16-alpine
+    environment: { POSTGRES_DB: pilot, POSTGRES_USER: pilot, POSTGRES_PASSWORD: pilot }
+  redis:
+    image: redis:7-alpine
